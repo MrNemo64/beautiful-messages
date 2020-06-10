@@ -1,4 +1,4 @@
-package me.nemo_64.spigotutilities.chatcomponent;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

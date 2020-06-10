@@ -1,4 +1,4 @@
-package me.nemo_64.spigotutilities.chatcomponent;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
 import java.util.ArrayList;
 import java.util.List;
