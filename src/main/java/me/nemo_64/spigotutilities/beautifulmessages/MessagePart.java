@@ -5,8 +5,8 @@ import javax.annotation.Nullable;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.chatcomponent.events.ClickEvent;
-import me.nemo_64.spigotutilities.chatcomponent.events.HoverEvent;
+import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEvent;
+import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEvent;
 
 public class MessagePart {
 
