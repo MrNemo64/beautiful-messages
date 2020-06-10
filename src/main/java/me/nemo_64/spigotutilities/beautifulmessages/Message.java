@@ -1,11 +1,17 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.bukkit.entity.Player;
+
+import me.nemo_64.spigotutilities.ReflectionUtils;
 
 public class Message {
 
@@ -14,9 +20,71 @@ public class Message {
 	public Message() {
 		this.parts = new ArrayList<MessagePart>();
 	}
-	
+
 	public Message(List<MessagePart> parts) {
 		this.parts = parts;
+	}
+
+	public Message(MessagePart... parts) {
+		this(Arrays.asList(parts));
+	}
+
+	/**
+	 * Sends this message to the player
+	 * 
+	 * @param player
+	 *            The player that will recive the message
+	 */
+	public void sendTo(@Nonnull Player player) {
+		try {
+			// Get the "a" method in ChatSerializer and use it with this messages json
+			Object iChatBaseComponentObject = ReflectionUtils.getNMSClass("IChatBaseComponent$ChatSerializer")
+					.getMethod("a", String.class).invoke(null, toJSON());
+			// Get the constructor of PacketPlayOutChat that takes as parameter a
+			// IChatBaseComponent and instancie a new PacketPlayOutChat
+			Object packetPlayOutChatpackage = ReflectionUtils.getNMSClass("PacketPlayOutChat")
+					.getConstructor(ReflectionUtils.getNMSClass("IChatBaseComponent"))
+					.newInstance(iChatBaseComponentObject);
+
+			ReflectionUtils.sendPacket(player, packetPlayOutChatpackage);
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException |
+				InvocationTargetException | InstantiationException e) {
+			// lots of posible errors :(
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Clones this message
+	 * 
+	 * @return A new message
+	 */
+	public Message clone() {
+		return new Message(getParts());
+	}
+
+	/**
+	 * Turns turns this message into a JSON string
+	 * 
+	 * @return This message as a JSON. If there are no message parts, returns null
+	 */
+	public String toJSON() {
+		if (getParts().isEmpty())
+			return null;
+
+		StringBuilder builder = new StringBuilder("[\"\",");
+
+		for (int i = 0; i < getParts().size(); i++) {
+			if (getParts().get(i) == null)
+				continue;
+			builder.append(getParts().get(i).toString());
+			if (i != getParts().size() - 1)
+				builder.append(",");
+		}
+
+		builder.append("]");
+
+		return builder.toString();
 	}
 
 	/**
@@ -137,28 +205,9 @@ public class Message {
 	@Override
 	@Nullable
 	public String toString() {
-		if (parts.isEmpty())
-			return null;
-
-		StringBuilder builder = new StringBuilder("[\"\",");
-
-		for (int i = 0; i < parts.size(); i++) {
-			if (parts.get(i) == null)
-				continue;
-			builder.append(parts.get(i).toString());
-			if (i != parts.size() - 1)
-				builder.append(",");
-		}
-		
-		builder.append("]");
-
-		return builder.toString();
+		return toJSON();
 	}
 
-	public Message clone() {
-		return new Message(new ArrayList<>(getParts()));
-	}
-	
 	/**
 	 * Gets all the parts of the message
 	 * 

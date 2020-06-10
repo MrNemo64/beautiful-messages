@@ -8,7 +8,7 @@ import org.bukkit.ChatColor;
 import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEvent;
 import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEvent;
 
-public class MessagePart {
+public abstract class MessagePart {
 
 	private ClickEvent click;
 	private HoverEvent hover;
@@ -46,9 +46,9 @@ public class MessagePart {
 	/**
 	 * Gets a clone of this message part
 	 */
-	protected MessagePart clone() {
-		return new MessagePart(text, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
-	}
+	public abstract MessagePart clone();
+
+	public abstract String toJSON();
 
 	@Override
 	public boolean equals(Object obj) {
@@ -71,9 +71,7 @@ public class MessagePart {
 				&& getHover().equals(part.getHover()) && getClick().equals(part.getClick());
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder("{\"text\":\"" + text.replace("\"", "\\\"") + "\"");
+	protected StringBuilder appendColor(StringBuilder builder) {
 		if (bold)
 			builder.append(", \"bold\":true");
 		if (italics)
@@ -86,10 +84,16 @@ public class MessagePart {
 			builder.append(", \"obfuscated\":true");
 		if (color != null)
 			builder.append(",\"color\": \"" + color.name().toLowerCase() + "\"");
+		return builder;
+	}
+	
+	protected StringBuilder appendEvents(StringBuilder builder) {
+		return builder;
+	}
 
-		builder.append("}");
-
-		return builder.toString();
+	@Override
+	public String toString() {
+		return toJSON();
 	}
 
 	public ClickEvent getClick() {

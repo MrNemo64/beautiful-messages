@@ -1,7 +1,12 @@
 package me.nemo_64.spigotutilities.beautifulmessages.events;
 
-public class ClickEvent {
+public abstract class ClickEvent {
 
-	public ClickEvent() {}
-
+	public abstract String toJSON();
+	
+	@Override
+	public String toString() {
+		return toJSON();
+	}
+	
 }
