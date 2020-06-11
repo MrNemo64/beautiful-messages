@@ -8,6 +8,9 @@ import org.bukkit.ChatColor;
 import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEvent;
 import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEvent;
 
+/**
+ * Represents a message part with just text
+ */
 public abstract class MessagePart {
 
 	private ClickEvent click;
@@ -48,7 +51,22 @@ public abstract class MessagePart {
 	 */
 	public abstract MessagePart clone();
 
-	public abstract String toJSON();
+	/**
+	 * Turns turns this message part into a JSON string
+	 * 
+	 * @param ignoreColors
+	 *            If true, colors won't be applied
+	 * @param ignoreEvents
+	 *            If true, events won't be applied
+	 * @return This message part as a JSON
+	 */
+
+	public abstract String toJSON(boolean ignoreColors, boolean ignoreEvents);
+
+	@Nullable
+	public String toJSON() {
+		return toJSON(false, false);
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -86,8 +104,12 @@ public abstract class MessagePart {
 			builder.append(",\"color\": \"" + color.name().toLowerCase() + "\"");
 		return builder;
 	}
-	
+
 	protected StringBuilder appendEvents(StringBuilder builder) {
+		if (getClick() != null)
+			builder.append(getClick().toJSON());
+		if (getHover() != null)
+			builder.append(getHover().toJSON());
 		return builder;
 	}
 

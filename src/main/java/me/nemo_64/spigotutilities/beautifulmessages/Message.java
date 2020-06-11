@@ -9,6 +9,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import me.nemo_64.spigotutilities.ReflectionUtils;
@@ -36,6 +37,19 @@ public class Message {
 	 *            The player that will recive the message
 	 */
 	public void sendTo(@Nonnull Player player) {
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + player.getName() + " " + toJSON());
+	}
+
+	/**
+	 * Sends this message to the player
+	 * Not all message parts may wotk with this
+	 * 
+	 * @param player
+	 *            The player that will recive the message
+	 */
+	public void sendWithPacketsTo(Player player) {
+		// For some reason, things like the score and the selector don't work sending it
+		// like this
 		try {
 			// Get the "a" method in ChatSerializer and use it with this messages json
 			Object iChatBaseComponentObject = ReflectionUtils.getNMSClass("IChatBaseComponent$ChatSerializer")
@@ -45,11 +59,11 @@ public class Message {
 			Object packetPlayOutChatpackage = ReflectionUtils.getNMSClass("PacketPlayOutChat")
 					.getConstructor(ReflectionUtils.getNMSClass("IChatBaseComponent"))
 					.newInstance(iChatBaseComponentObject);
-
 			ReflectionUtils.sendPacket(player, packetPlayOutChatpackage);
-		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException |
-				InvocationTargetException | InstantiationException e) {
-			// lots of posible errors :(
+
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException |
+				SecurityException | InstantiationException e) {
+			// So many posible errors :(
 			e.printStackTrace();
 		}
 	}
@@ -65,10 +79,11 @@ public class Message {
 
 	/**
 	 * Turns turns this message into a JSON string
-	 * 
+	 * @param ignoreColors If true, colors won't be applied
+	 * @param ignoreEvents If true, events won't be applied
 	 * @return This message as a JSON. If there are no message parts, returns null
 	 */
-	public String toJSON() {
+	public String toJSON(boolean ignoreColors, boolean ignoreEvents) {
 		if (getParts().isEmpty())
 			return null;
 
@@ -77,7 +92,7 @@ public class Message {
 		for (int i = 0; i < getParts().size(); i++) {
 			if (getParts().get(i) == null)
 				continue;
-			builder.append(getParts().get(i).toString());
+			builder.append(getParts().get(i).toJSON());
 			if (i != getParts().size() - 1)
 				builder.append(",");
 		}
@@ -86,7 +101,15 @@ public class Message {
 
 		return builder.toString();
 	}
-
+	
+	/**
+	 * Turns turns this message into a JSON string
+	 * @return This message as a JSON. If there are no message parts, returns null
+	 */
+	public String toJSON() {
+		return toJSON(false, false);
+	}
+	
 	/**
 	 * Ads a message part to this message
 	 * 

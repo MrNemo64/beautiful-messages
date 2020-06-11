@@ -5,6 +5,13 @@ import org.bukkit.ChatColor;
 import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEvent;
 import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEvent;
 
+/**
+ * This message part has no text.<br>
+ * It will just get replaced with the key that the player has configured for a
+ * specific action.<br>
+ * For example, {@link Keybind#FORWARD} will probably get replaced with "w"
+ * since is the key by default.
+ */
 public abstract class MessagePartKeybind extends MessagePart {
 
 	private Keybind key;

@@ -8,6 +8,14 @@ import org.bukkit.ChatColor;
 import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEvent;
 import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEvent;
 
+/**
+ * This message part has no text, only the name of a scoreboard and a
+ * player.<br>
+ * This message part will be replaced with the score of the player on the
+ * defined scoreboard.<br>
+ * If the scoreboard does not exist / the player has no score, this message part
+ * will be replaced with nothing
+ */
 public abstract class MessagePartScore extends MessagePart {
 
 	private String player;

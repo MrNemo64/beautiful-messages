@@ -1,4 +1,4 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v11to14;
+package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v11;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -9,9 +9,9 @@ import me.nemo_64.spigotutilities.beautifulmessages.MessagePart;
 import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEvent;
 import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEvent;
 
-public class MessagePart11_14 extends MessagePart {
+public class MessagePart11 extends MessagePart {
 
-	public MessagePart11_14(@Nonnull String text, @Nullable ChatColor color, boolean bold, boolean italics,
+	public MessagePart11(@Nonnull String text, @Nullable ChatColor color, boolean bold, boolean italics,
 			boolean underlined, boolean strikethrough, boolean obfuscated, @Nullable ClickEvent click,
 			@Nullable HoverEvent hover) {
 		super(text, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
@@ -20,12 +20,12 @@ public class MessagePart11_14 extends MessagePart {
 	/**
 	 * Creates an empty message part
 	 */
-	public MessagePart11_14() {
+	public MessagePart11() {
 		super("empty", ChatColor.WHITE, false, false, false, false, false, null, null);
 	}
 
 	@Override
-	public String toJSON() {
+	public String toJSON(boolean ignoreColors, boolean ignoreEvents) {
 		// {"text":"TEXT",...}
 		StringBuilder builder = new StringBuilder("{\"text\":\"");
 
@@ -33,9 +33,11 @@ public class MessagePart11_14 extends MessagePart {
 
 		builder.append("\"");
 
-		builder = appendColor(builder);
+		if (!ignoreColors)
+			builder = appendColor(builder);
 
-		builder = appendEvents(builder);
+		if (!ignoreEvents)
+			builder = appendEvents(builder);
 
 		builder.append("}");
 
@@ -43,7 +45,7 @@ public class MessagePart11_14 extends MessagePart {
 	}
 
 	public MessagePart clone() {
-		return new MessagePart11_14(getText(), getColor(), isBold(), isItalics(), isUnderlined(), isStrikethrough(),
+		return new MessagePart11(getText(), getColor(), isBold(), isItalics(), isUnderlined(), isStrikethrough(),
 				isObfuscated(), getClick(), getHover());
 	}
 
