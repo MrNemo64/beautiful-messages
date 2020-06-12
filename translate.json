@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # To check the paths avilable in a specific version go to .minecraft/assets/indexes and open the .json file of the version.S
 # If you don't have the .json file of the version you'll need to launch minecraft in that version
 # Some versions share the .json file like 1.15, 1.15.1 and 1.15.2 all share the 1.15.json
