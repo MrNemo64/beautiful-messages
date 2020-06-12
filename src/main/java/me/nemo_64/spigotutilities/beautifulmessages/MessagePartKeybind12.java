@@ -1,13 +1,8 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v12;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.ClickEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.HoverEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.MessagePart;
-import me.nemo_64.spigotutilities.beautifulmessages.MessagePartKeybind;
-
-public class MessagePartKeybind12 extends MessagePartKeybind {
+class MessagePartKeybind12 extends MessagePartKeybind {
 
 	public MessagePartKeybind12(Keybind key, ChatColor color, boolean bold, boolean italics, boolean underlined,
 			boolean strikethrough, boolean obfuscated, ClickEvent click, HoverEvent hover) {

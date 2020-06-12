@@ -9,7 +9,6 @@ import javax.annotation.Nonnull;
 import org.bukkit.inventory.ItemStack;
 
 import me.nemo_64.spigotutilities.ReflectionUtils;
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8.HoverEventItem8;
 
 public abstract class HoverEventItem extends HoverEvent {
 

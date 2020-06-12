@@ -1,13 +1,8 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.ClickEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.HoverEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.MessagePart;
-import me.nemo_64.spigotutilities.beautifulmessages.MessagePartScore;
-
-public class MessagePartScore8 extends MessagePartScore {
+class MessagePartScore8 extends MessagePartScore {
 
 	public MessagePartScore8(String player, String score, ChatColor color, boolean bold, boolean italics,
 			boolean underlined, boolean strikethrough, boolean obfuscated, ClickEvent click, HoverEvent hover) {

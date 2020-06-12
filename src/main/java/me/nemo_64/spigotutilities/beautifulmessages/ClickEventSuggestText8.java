@@ -1,8 +1,6 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
-import me.nemo_64.spigotutilities.beautifulmessages.ClickEventSuggestText;
-
-public class ClickEventSuggestText8 extends ClickEventSuggestText {
+class ClickEventSuggestText8 extends ClickEventSuggestText {
 
 	public ClickEventSuggestText8(String text) {
 		super(text);

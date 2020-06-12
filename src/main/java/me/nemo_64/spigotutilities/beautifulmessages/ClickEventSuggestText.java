@@ -2,8 +2,6 @@ package me.nemo_64.spigotutilities.beautifulmessages;
 
 import javax.annotation.Nonnull;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8.ClickEventSuggestText8;
-
 /**
  * When clicked the player gets a suggestion of a text.<br>
  * Have in munt that for this to work the player must shitf+click.<br>

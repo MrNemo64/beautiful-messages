@@ -5,8 +5,6 @@ import javax.annotation.Nullable;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8.MessagePart8;
-
 /**
  * This message part is replaced with the translation in the lang file on the
  * player

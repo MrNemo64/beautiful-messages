@@ -2,8 +2,6 @@ package me.nemo_64.spigotutilities.beautifulmessages;
 
 import javax.annotation.Nonnegative;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8.ClickEventGoToPage8;
-
 /**
  * Only works in books<br>
  * When clicked the player will go to the specified page

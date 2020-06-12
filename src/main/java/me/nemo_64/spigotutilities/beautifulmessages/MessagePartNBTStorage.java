@@ -5,8 +5,6 @@ import javax.annotation.Nullable;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v15.MessagePartNBTStorage15;
-
 /**
  * Works in 1.15+<br>
  * This message part will be replaced with the data from the apth specified in

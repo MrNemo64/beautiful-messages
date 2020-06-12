@@ -5,8 +5,6 @@ import javax.annotation.Nullable;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v12.MessagePartKeybind12;
-
 /**
  * Works in 1.12+<br>
  * This message part has no text.<br>

@@ -1,8 +1,6 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
-import me.nemo_64.spigotutilities.beautifulmessages.ClickEventRunCommand;
-
-public class ClickEventRunCommand8 extends ClickEventRunCommand {
+class ClickEventRunCommand8 extends ClickEventRunCommand {
 
 	public ClickEventRunCommand8() {
 		super();

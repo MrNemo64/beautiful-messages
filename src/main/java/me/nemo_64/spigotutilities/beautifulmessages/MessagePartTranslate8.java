@@ -1,13 +1,8 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.ClickEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.HoverEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.MessagePart;
-import me.nemo_64.spigotutilities.beautifulmessages.MessagePartTranslate;
-
-public class MessagePartTranslate8 extends MessagePartTranslate {
+class MessagePartTranslate8 extends MessagePartTranslate {
 
 	public MessagePartTranslate8(String path, ChatColor color, boolean bold, boolean italics, boolean underlined,
 			boolean strikethrough, boolean obfuscated, ClickEvent click, HoverEvent hover) {

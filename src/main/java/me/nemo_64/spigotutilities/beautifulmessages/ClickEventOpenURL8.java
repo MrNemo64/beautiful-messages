@@ -1,10 +1,8 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
 import java.net.URL;
 
-import me.nemo_64.spigotutilities.beautifulmessages.ClickEventOpenURL;
-
-public class ClickEventOpenURL8 extends ClickEventOpenURL {
+class ClickEventOpenURL8 extends ClickEventOpenURL {
 
 	public ClickEventOpenURL8() {
 		super();

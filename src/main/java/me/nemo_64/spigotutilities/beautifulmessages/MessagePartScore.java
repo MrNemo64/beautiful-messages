@@ -5,8 +5,6 @@ import javax.annotation.Nullable;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8.MessagePartScore8;
-
 /**
  * This message part has no text, only the name of a scoreboard and a
  * player.<br>

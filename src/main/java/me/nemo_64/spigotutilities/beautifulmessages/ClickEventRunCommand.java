@@ -2,8 +2,6 @@ package me.nemo_64.spigotutilities.beautifulmessages;
 
 import javax.annotation.Nonnull;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8.ClickEventRunCommand8;
-
 /**
  * When clicked the player will run the specified command.<br>
  * Take in mind that if the command is "/say hellow" the value must be "/say

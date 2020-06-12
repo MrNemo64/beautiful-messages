@@ -1,13 +1,8 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v15;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.ClickEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.HoverEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.MessagePart;
-import me.nemo_64.spigotutilities.beautifulmessages.MessagePartNBTStorage;
-
-public class MessagePartNBTStorage15 extends MessagePartNBTStorage {
+class MessagePartNBTStorage15 extends MessagePartNBTStorage {
 
 	public MessagePartNBTStorage15(String path, String storage, boolean interpret, ChatColor color, boolean bold,
 			boolean italics, boolean underlined, boolean strikethrough, boolean obfuscated, ClickEvent click,

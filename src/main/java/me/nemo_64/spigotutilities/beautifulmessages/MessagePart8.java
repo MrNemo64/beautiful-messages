@@ -1,15 +1,11 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.ClickEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.HoverEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.MessagePart;
-
-public class MessagePart8 extends MessagePart {
+class MessagePart8 extends MessagePart {
 
 	public MessagePart8(@Nonnull String text, @Nullable ChatColor color, boolean bold, boolean italics,
 			boolean underlined, boolean strikethrough, boolean obfuscated, @Nullable ClickEvent click,

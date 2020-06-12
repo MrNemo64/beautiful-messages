@@ -1,8 +1,6 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v15;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
-import me.nemo_64.spigotutilities.beautifulmessages.ClickEventCopyToClipboard;
-
-public class ClickEventCopyToClipboard15 extends ClickEventCopyToClipboard {
+class ClickEventCopyToClipboard15 extends ClickEventCopyToClipboard {
 
 	public ClickEventCopyToClipboard15() {
 		super();

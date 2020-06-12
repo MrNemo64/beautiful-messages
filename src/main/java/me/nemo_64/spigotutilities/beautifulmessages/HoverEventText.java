@@ -2,8 +2,6 @@ package me.nemo_64.spigotutilities.beautifulmessages;
 
 import javax.annotation.Nonnull;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8.HoverEventText8;
-
 public abstract class HoverEventText extends HoverEvent {
 
 	protected HoverEventText(String text) {

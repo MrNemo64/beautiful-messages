@@ -4,8 +4,6 @@ import java.net.URL;
 
 import javax.annotation.Nonnull;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8.ClickEventOpenURL8;
-
 /**
  * When clicked a pop up message will tell the player if he wants to open the
  * specified webpage

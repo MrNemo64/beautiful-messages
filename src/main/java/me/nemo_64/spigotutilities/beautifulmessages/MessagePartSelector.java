@@ -5,8 +5,6 @@ import javax.annotation.Nullable;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8.MessagePartSelector8;
-
 /**
  * This message part gets replaced with the entityes that match the criteria.<br>
  * If you set as selector "@a", it will get replaced with the name of all the players.<br>

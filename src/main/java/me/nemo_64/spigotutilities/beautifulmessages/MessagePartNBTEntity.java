@@ -5,8 +5,6 @@ import javax.annotation.Nullable;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v14.MessagePartNBTEntity14;
-
 /**
  * Works in 1.14+<br>
  * Gets replaed with the information of an entity

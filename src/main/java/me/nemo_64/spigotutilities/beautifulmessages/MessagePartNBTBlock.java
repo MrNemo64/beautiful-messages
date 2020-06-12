@@ -6,8 +6,6 @@ import javax.annotation.Nullable;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v14.MessagePartNBTBlock14;
-
 /**
  * This only works on minecraft 1.14+<br>
  * This message part will be replaced with the specified nbt data of a specified

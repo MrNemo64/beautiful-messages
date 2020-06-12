@@ -2,8 +2,6 @@ package me.nemo_64.spigotutilities.beautifulmessages;
 
 import javax.annotation.Nonnull;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v15.ClickEventCopyToClipboard15;
-
 /**
  * Only works with minecraft 1.15+<br>
  * When clicked the player will copy the specified text to copy
