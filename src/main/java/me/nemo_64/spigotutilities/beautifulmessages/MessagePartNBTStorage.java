@@ -4,24 +4,26 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 
-import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v14.MessagePartNBTBlock14;
+import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v15.MessagePartNBTStorage15;
 
 /**
- * This only works on minecraft 1.14+<br>
- * This message part will be replaced with the specified nbt data of a specified
- * block
+ * Works in 1.15+<br>
+ * This message part will be replaced with the data from the apth specified in
+ * the storage specified.<br>
+ * A storage is created and a value is stored in the path, for example, using
+ * the command
+ * {@code /data modify storage %STORAGE_NAME% %PATH_TO_DATA% set value %VALUE}
  */
-public abstract class MessagePartNBTBlock extends MessagePartNBT {
+public abstract class MessagePartNBTStorage extends MessagePartNBT {
 
-	private Location block;
+	private String storage;
 
-	protected MessagePartNBTBlock(String nbtPath, Location block, boolean interpret, ChatColor color, boolean bold,
+	protected MessagePartNBTStorage(String path, String storage, boolean interpret, ChatColor color, boolean bold,
 			boolean italics, boolean underlined, boolean strikethrough, boolean obfuscated, ClickEvent click,
 			HoverEvent hover) {
-		super(nbtPath, interpret, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
-		this.block = block;
+		super(path, interpret, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
+		this.storage = storage;
 	}
 
 	/**
@@ -30,8 +32,8 @@ public abstract class MessagePartNBTBlock extends MessagePartNBT {
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
-	 * @param location
-	 *            The location of the block
+	 * @param storage
+	 *            The storage to take the value from
 	 * @param color
 	 *            The color of the text
 	 * @param bold
@@ -50,10 +52,10 @@ public abstract class MessagePartNBTBlock extends MessagePartNBT {
 	 *            The hover event
 	 * @return A message part in the corresponding minecraft version
 	 */
-	public static MessagePartNBTBlock create(@Nonnull String nbtPath, @Nonnull Location location,
+	public static MessagePartNBTStorage create(@Nonnull String nbtPath, @Nonnull String storage,
 			@Nullable ChatColor color, boolean bold, boolean italics, boolean underlined, boolean strikethrough,
 			boolean obfuscated, @Nullable ClickEvent click, @Nullable HoverEvent hover) {
-		return new MessagePartNBTBlock14(nbtPath, location, true, color, bold, italics, underlined, strikethrough,
+		return new MessagePartNBTStorage15(nbtPath, storage, true, color, bold, italics, underlined, strikethrough,
 				obfuscated, click, hover);
 	}
 
@@ -63,12 +65,12 @@ public abstract class MessagePartNBTBlock extends MessagePartNBT {
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
-	 * @param location
-	 *            The location of the block
+	 * @param storage
+	 *            The storage to take the value from
 	 * @return A message part in the corresponding minecraft version
 	 */
-	public static MessagePartNBTBlock create(@Nonnull String nbtPath, @Nonnull Location location) {
-		return create(nbtPath, location, ChatColor.WHITE);
+	public static MessagePartNBTStorage create(@Nonnull String nbtPath, @Nonnull String storage) {
+		return create(nbtPath, storage, ChatColor.WHITE);
 	}
 
 	/**
@@ -77,15 +79,16 @@ public abstract class MessagePartNBTBlock extends MessagePartNBT {
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
-	 * @param location
-	 *            The location of the block
+	 * @param storage
+	 *            The storage to take the value from
 	 * @param color
 	 *            The color of the text
 	 * @return A message part in the corresponding minecraft version
 	 */
-	public static MessagePartNBTBlock create(@Nonnull String nbtPath, @Nonnull Location location,
+	public static MessagePartNBTStorage create(@Nonnull String nbtPath, @Nonnull String storage,
 			@Nullable ChatColor color) {
-		return new MessagePartNBTBlock14(nbtPath, location, true, color, false, false, false, false, false, null, null);
+		return new MessagePartNBTStorage15(nbtPath, storage, true, color, false, false, false, false, false, null,
+				null);
 	}
 
 	/**
@@ -94,23 +97,23 @@ public abstract class MessagePartNBTBlock extends MessagePartNBT {
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
-	 * @param location
-	 *            The location of the block
+	 * @param storage
+	 *            The storage to take the value from
 	 * @param color
 	 *            The color of the text
 	 * @return A message part in the corresponding minecraft version
 	 */
-	public static MessagePartNBTBlock create(@Nonnull String nbtPath, @Nonnull Location location,
+	public static MessagePartNBTStorage create(@Nonnull String nbtPath, @Nonnull String storage,
 			@Nullable ChatColor color, boolean bold) {
-		return new MessagePartNBTBlock14(nbtPath, location, true, color, bold, false, false, false, false, null, null);
+		return new MessagePartNBTStorage15(nbtPath, storage, true, color, bold, false, false, false, false, null, null);
 	}
 
-	public Location getBlock() {
-		return block;
+	public String getStorage() {
+		return storage;
 	}
 
-	public void setBlock(Location block) {
-		this.block = block;
+	public void setStorage(String storage) {
+		this.storage = storage;
 	}
 
 }

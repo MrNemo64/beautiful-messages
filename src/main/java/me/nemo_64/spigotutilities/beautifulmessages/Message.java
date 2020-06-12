@@ -11,6 +11,9 @@ import javax.annotation.Nullable;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import me.nemo_64.spigotutilities.ReflectionUtils;
 
@@ -41,8 +44,7 @@ public class Message {
 	}
 
 	/**
-	 * Sends this message to the player
-	 * Not all message parts may wotk with this
+	 * Sends this message to the player Not all message parts may wotk with this
 	 * 
 	 * @param player
 	 *            The player that will recive the message
@@ -69,6 +71,73 @@ public class Message {
 	}
 
 	/**
+	 * Sets this message to a book page
+	 * 
+	 * @param meta
+	 *            The book meta
+	 * @param page
+	 *            The page to set it
+	 */
+	public void setOnBook(BookMeta meta, int page) {
+		meta.setPage(page, toJSON());
+	}
+
+	/**
+	 * Sets this message to a book page
+	 * 
+	 * @param meta
+	 *            The book meta
+	 * @param page
+	 *            The page to set it
+	 */
+	public void setOnBook(ItemMeta meta, int page) {
+		if (!(meta instanceof BookMeta))
+			throw new IllegalArgumentException("The ItemMeta is not an instanco of a BookMeta");
+		setOnBook((BookMeta) meta, page);
+	}
+
+	/**
+	 * Creates a new page and sets this text on it
+	 * 
+	 * @param meta
+	 *            The book meta
+	 */
+	public void addToBook(ItemMeta meta) {
+		if (!(meta instanceof BookMeta))
+			throw new IllegalArgumentException("The ItemMeta is not an instanco of a BookMeta");
+		BookMeta bMeta = (BookMeta) meta;
+		// Since the first page is the page 1, the amount of pages is the index of the
+		// last page + 1
+		setOnBook(bMeta, bMeta.getPageCount() + 1);
+	}
+
+	/**
+	 * Sets this message to a book page
+	 * 
+	 * @param book
+	 *            The book item
+	 * @param page
+	 *            The page
+	 */
+	public void setOnBook(ItemStack book, int page) {
+		if (!(book.getItemMeta() instanceof BookMeta))
+			throw new IllegalArgumentException("The item is not a book");
+		setOnBook((BookMeta) book.getItemMeta(), page);
+	}
+
+	/**
+	 * Creates a new page and sets this text on it
+	 * 
+	 * @param book
+	 *            The book item
+	 */
+	public void addToBook(ItemStack book) {
+		if (!(book.getItemMeta() instanceof BookMeta))
+			throw new IllegalArgumentException("The item is not a book");
+		addToBook((BookMeta) book.getItemMeta());
+	}
+
+	/**
 	 * Clones this message
 	 * 
 	 * @return A new message
@@ -79,8 +148,11 @@ public class Message {
 
 	/**
 	 * Turns turns this message into a JSON string
-	 * @param ignoreColors If true, colors won't be applied
-	 * @param ignoreEvents If true, events won't be applied
+	 * 
+	 * @param ignoreColors
+	 *            If true, colors won't be applied
+	 * @param ignoreEvents
+	 *            If true, events won't be applied
 	 * @return This message as a JSON. If there are no message parts, returns null
 	 */
 	public String toJSON(boolean ignoreColors, boolean ignoreEvents) {
@@ -101,15 +173,16 @@ public class Message {
 
 		return builder.toString();
 	}
-	
+
 	/**
 	 * Turns turns this message into a JSON string
+	 * 
 	 * @return This message as a JSON. If there are no message parts, returns null
 	 */
 	public String toJSON() {
 		return toJSON(false, false);
 	}
-	
+
 	/**
 	 * Ads a message part to this message
 	 * 

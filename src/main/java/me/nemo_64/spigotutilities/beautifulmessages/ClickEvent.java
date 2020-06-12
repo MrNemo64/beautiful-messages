@@ -1,4 +1,4 @@
-package me.nemo_64.spigotutilities.beautifulmessages.events;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
 import javax.annotation.Nonnull;
 
@@ -6,11 +6,11 @@ public abstract class ClickEvent {
 
 	private String value;
 
-	public ClickEvent(@Nonnull String value) {
+	protected ClickEvent(@Nonnull String value) {
 		this.value = value;
 	}
 
-	public ClickEvent() {
+	protected ClickEvent() {
 		this("value");
 	}
 
@@ -28,5 +28,5 @@ public abstract class ClickEvent {
 	public void setValue(String value) {
 		this.value = value;
 	}
-
+	
 }

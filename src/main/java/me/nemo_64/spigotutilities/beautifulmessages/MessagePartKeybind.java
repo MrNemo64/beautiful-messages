@@ -1,11 +1,14 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEvent;
+import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v12.MessagePartKeybind12;
 
 /**
+ * Works in 1.12+<br>
  * This message part has no text.<br>
  * It will just get replaced with the key that the player has configured for a
  * specific action.<br>
@@ -16,14 +19,89 @@ public abstract class MessagePartKeybind extends MessagePart {
 
 	private Keybind key;
 
-	public MessagePartKeybind(Keybind key, ChatColor color, boolean bold, boolean italics, boolean underlined,
+	protected MessagePartKeybind(Keybind key, ChatColor color, boolean bold, boolean italics, boolean underlined,
 			boolean strikethrough, boolean obfuscated, ClickEvent click, HoverEvent hover) {
-		super("", color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
+		super(key.getPath(), color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
 		this.key = key;
 	}
 
-	public MessagePartKeybind() {
+	protected MessagePartKeybind() {
 		super();
+	}
+
+	/**
+	 * Creates a message part in the corresponding minecraft version
+	 * 
+	 * @param key
+	 *            The key to be displayed
+	 * @param color
+	 *            The color of the text
+	 * @param bold
+	 *            If the text is bold
+	 * @param italics
+	 *            If the text is in italics
+	 * @param underlined
+	 *            If the text is underlined
+	 * @param strikethrough
+	 *            If the text is in strikethrough
+	 * @param obfuscated
+	 *            If the text is obfuscated
+	 * @param click
+	 *            The click event
+	 * @param hover
+	 *            The hover event
+	 * @return A message part in the corresponding minecraft version
+	 */
+	public static MessagePartKeybind create(@Nonnull Keybind key, @Nullable ChatColor color, boolean bold,
+			boolean italics, boolean underlined, boolean strikethrough, boolean obfuscated, @Nullable ClickEvent click,
+			@Nullable HoverEvent hover) {
+		return new MessagePartKeybind12(key, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
+	}
+
+	/**
+	 * Creates a message part in the corresponding minecraft version
+	 * 
+	 * @return A message part in the corresponding minecraft version
+	 */
+	public static MessagePartKeybind create() {
+		return new MessagePartKeybind12();
+	}
+
+	/**
+	 * Creates a message part in the corresponding minecraft version
+	 * 
+	 * @param key
+	 *            The key to be displayed
+	 * @return A message part in the corresponding minecraft version
+	 */
+	public static MessagePartKeybind create(@Nonnull Keybind key) {
+		return create(key, ChatColor.WHITE);
+	}
+
+	/**
+	 * Creates a message part in the corresponding minecraft version
+	 * 
+	 * @param key
+	 *            The key to be displayed
+	 * @param color
+	 *            The color of the text
+	 * @return A message part in the corresponding minecraft version
+	 */
+	public static MessagePartKeybind create(@Nonnull Keybind key, @Nullable ChatColor color) {
+		return new MessagePartKeybind12(key, color, false, false, false, false, false, null, null);
+	}
+
+	/**
+	 * Creates a message part in the corresponding minecraft version
+	 * 
+	 * @param key
+	 *            The key to be displayed
+	 * @param color
+	 *            The color of the text
+	 * @return A message part in the corresponding minecraft version
+	 */
+	public static MessagePartKeybind create(@Nonnull Keybind key, @Nullable ChatColor color, boolean bold) {
+		return new MessagePartKeybind12(key, color, bold, false, false, false, false, null, null);
 	}
 
 	public Keybind getKey() {
@@ -32,16 +110,6 @@ public abstract class MessagePartKeybind extends MessagePart {
 
 	public void setKey(Keybind key) {
 		this.key = key;
-	}
-
-	@Override
-	public void setText(String text) {
-		throw new IllegalAccessError("The MessagePartKeybind does not have a text");
-	}
-
-	@Override
-	public String getText() {
-		throw new IllegalAccessError("The MessagePartKeybind does not have a text");
 	}
 
 	public static enum Keybind {

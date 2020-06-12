@@ -1,26 +1,26 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v11;
+package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8;
 
 import org.bukkit.ChatColor;
 
+import me.nemo_64.spigotutilities.beautifulmessages.ClickEvent;
+import me.nemo_64.spigotutilities.beautifulmessages.HoverEvent;
 import me.nemo_64.spigotutilities.beautifulmessages.MessagePart;
 import me.nemo_64.spigotutilities.beautifulmessages.MessagePartScore;
-import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEvent;
 
-public class MessagePartScore11 extends MessagePartScore {
+public class MessagePartScore8 extends MessagePartScore {
 
-	public MessagePartScore11(String player, String score, ChatColor color, boolean bold, boolean italics,
+	public MessagePartScore8(String player, String score, ChatColor color, boolean bold, boolean italics,
 			boolean underlined, boolean strikethrough, boolean obfuscated, ClickEvent click, HoverEvent hover) {
 		super(player, score, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
 	}
 
-	public MessagePartScore11() {
+	public MessagePartScore8() {
 		super();
 	}
 
 	@Override
 	public MessagePart clone() {
-		return new MessagePartScore11(getPlayer(), getScore(), getColor(), isBold(), isItalics(), isUnderlined(),
+		return new MessagePartScore8(getPlayer(), getScore(), getColor(), isBold(), isItalics(), isUnderlined(),
 				isStrikethrough(), isObfuscated(), getClick(), getHover());
 	}
 

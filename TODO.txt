@@ -1,5 +1,3 @@
--- achivement
--- stats
--- entity
+-- hover entity
 
 --->https://minecraft.gamepedia.com/Raw_JSON_text_format

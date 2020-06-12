@@ -1,14 +1,14 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v11.events;
+package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8;
 
-import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEventSuggestCommand;
+import me.nemo_64.spigotutilities.beautifulmessages.ClickEventSuggestCommand;
 
-public class ClickEventSuggestCommand11 extends ClickEventSuggestCommand {
+public class ClickEventSuggestCommand8 extends ClickEventSuggestCommand {
 
-	public ClickEventSuggestCommand11() {
+	public ClickEventSuggestCommand8() {
 		super();
 	}
 
-	public ClickEventSuggestCommand11(String command) {
+	public ClickEventSuggestCommand8(String command) {
 		super(command);
 	}
 

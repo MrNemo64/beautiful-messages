@@ -1,19 +1,19 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v11.events;
+package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8;
 
+import me.nemo_64.spigotutilities.beautifulmessages.HoverEventText;
 import me.nemo_64.spigotutilities.beautifulmessages.Message;
-import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEventText;
 
-public class HoverEventText11 extends HoverEventText {
+public class HoverEventText8 extends HoverEventText {
 
-	public HoverEventText11(String text) {
+	public HoverEventText8(String text) {
 		super(text);
 	}
 
-	public HoverEventText11() {
+	public HoverEventText8() {
 		super();
 	}
 
-	public HoverEventText11(Message message) {
+	public HoverEventText8(Message message) {
 		super(message);
 	}
 

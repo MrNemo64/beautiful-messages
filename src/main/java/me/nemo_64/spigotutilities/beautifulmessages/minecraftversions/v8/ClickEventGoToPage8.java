@@ -1,14 +1,14 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v11.events;
+package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8;
 
-import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEventGoToPage;
+import me.nemo_64.spigotutilities.beautifulmessages.ClickEventGoToPage;
 
-public class ClickEventGoToPage11 extends ClickEventGoToPage {
+public class ClickEventGoToPage8 extends ClickEventGoToPage {
 
-	public ClickEventGoToPage11() {
+	public ClickEventGoToPage8() {
 		super(0);
 	}
 
-	public ClickEventGoToPage11(int page) {
+	public ClickEventGoToPage8(int page) {
 		super(page);
 	}
 

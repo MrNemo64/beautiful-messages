@@ -5,8 +5,7 @@ import javax.annotation.Nullable;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEvent;
+import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8.MessagePartScore8;
 
 /**
  * This message part has no text, only the name of a scoreboard and a
@@ -21,7 +20,7 @@ public abstract class MessagePartScore extends MessagePart {
 	private String player;
 	private String score;
 
-	public MessagePartScore(@Nonnull String player, @Nonnull String score, @Nullable ChatColor color, boolean bold,
+	protected MessagePartScore(@Nonnull String player, @Nonnull String score, @Nullable ChatColor color, boolean bold,
 			boolean italics, boolean underlined, boolean strikethrough, boolean obfuscated, @Nullable ClickEvent click,
 			@Nullable HoverEvent hover) {
 		super("", color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
@@ -29,8 +28,94 @@ public abstract class MessagePartScore extends MessagePart {
 		this.score = score;
 	}
 
-	public MessagePartScore() {
+	protected MessagePartScore() {
 		super();
+	}
+
+	/**
+	 * Creates a message part in the corresponding minecraft version
+	 * 
+	 * @param playerName
+	 *            The playerName to be used
+	 * @param scoreboard
+	 *            The scoreboard to be used
+	 * @param color
+	 *            The color of the text
+	 * @param bold
+	 *            If the text is bold
+	 * @param italics
+	 *            If the text is in italics
+	 * @param underlined
+	 *            If the text is underlined
+	 * @param strikethrough
+	 *            If the text is in strikethrough
+	 * @param obfuscated
+	 *            If the text is obfuscated
+	 * @param click
+	 *            The click event
+	 * @param hover
+	 *            The hover event
+	 * @return A message part in the corresponding minecraft version
+	 */
+	public static MessagePartScore create(@Nonnull String playerName, @Nonnull String scoreboard,
+			@Nullable ChatColor color, boolean bold, boolean italics, boolean underlined, boolean strikethrough,
+			boolean obfuscated, @Nullable ClickEvent click, @Nullable HoverEvent hover) {
+		return new MessagePartScore8(playerName, scoreboard, color, bold, italics, underlined, strikethrough,
+				obfuscated, click, hover);
+	}
+
+	/**
+	 * Creates a message part in the corresponding minecraft version
+	 * 
+	 * @return A message part in the corresponding minecraft version
+	 */
+	public static MessagePartScore create() {
+		return new MessagePartScore8();
+	}
+
+	/**
+	 * Creates a message part in the corresponding minecraft version
+	 * 
+	 * @param playerName
+	 *            The playerName to be used
+	 * @param scoreboard
+	 *            The scoreboard to be used
+	 * @return A message part in the corresponding minecraft version
+	 */
+	public static MessagePartScore create(@Nonnull String playerName, @Nonnull String scoreboard) {
+		return create(playerName, scoreboard, ChatColor.WHITE);
+	}
+
+	/**
+	 * Creates a message part in the corresponding minecraft version
+	 * 
+	 * @param playerName
+	 *            The playerName to be used
+	 * @param scoreboard
+	 *            The scoreboard to be used
+	 * @param color
+	 *            The color of the text
+	 * @return A message part in the corresponding minecraft version
+	 */
+	public static MessagePartScore create(@Nonnull String playerName, @Nonnull String scoreboard,
+			@Nullable ChatColor color) {
+		return new MessagePartScore8(playerName, scoreboard, color, false, false, false, false, false, null, null);
+	}
+
+	/**
+	 * Creates a message part in the corresponding minecraft version
+	 * 
+	 * @param playerName
+	 *            The playerName to be used
+	 * @param scoreboard
+	 *            The scoreboard to be used
+	 * @param color
+	 *            The color of the text
+	 * @return A message part in the corresponding minecraft version
+	 */
+	public static MessagePartScore create(@Nonnull String playerName, @Nonnull String scoreboard,
+			@Nullable ChatColor color, boolean bold) {
+		return new MessagePartScore8(playerName, scoreboard, color, bold, false, false, false, false, null, null);
 	}
 
 	public String getPlayer() {

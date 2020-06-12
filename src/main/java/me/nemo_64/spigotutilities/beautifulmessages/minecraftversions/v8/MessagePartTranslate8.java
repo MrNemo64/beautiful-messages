@@ -1,26 +1,26 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v11;
+package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8;
 
 import org.bukkit.ChatColor;
 
+import me.nemo_64.spigotutilities.beautifulmessages.ClickEvent;
+import me.nemo_64.spigotutilities.beautifulmessages.HoverEvent;
 import me.nemo_64.spigotutilities.beautifulmessages.MessagePart;
 import me.nemo_64.spigotutilities.beautifulmessages.MessagePartTranslate;
-import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEvent;
 
-public class MessagePartTranslate11 extends MessagePartTranslate {
+public class MessagePartTranslate8 extends MessagePartTranslate {
 
-	public MessagePartTranslate11(String path, ChatColor color, boolean bold, boolean italics, boolean underlined,
+	public MessagePartTranslate8(String path, ChatColor color, boolean bold, boolean italics, boolean underlined,
 			boolean strikethrough, boolean obfuscated, ClickEvent click, HoverEvent hover) {
 		super(path, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
 	}
 
-	public MessagePartTranslate11() {
+	public MessagePartTranslate8() {
 		super();
 	}
 
 	@Override
 	public MessagePart clone() {
-		return new MessagePartTranslate11(getText(), getColor(), isBold(), isItalics(), isUnderlined(),
+		return new MessagePartTranslate8(getText(), getColor(), isBold(), isItalics(), isUnderlined(),
 				isStrikethrough(), isObfuscated(), getClick(), getHover());
 	}
 

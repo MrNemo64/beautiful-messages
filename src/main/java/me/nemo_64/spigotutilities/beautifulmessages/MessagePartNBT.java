@@ -2,14 +2,11 @@ package me.nemo_64.spigotutilities.beautifulmessages;
 
 import org.bukkit.ChatColor;
 
-import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEvent;
-
 public abstract class MessagePartNBT extends MessagePart {
 
 	private boolean interpret;
 
-	public MessagePartNBT(String path, boolean interpret, ChatColor color, boolean bold, boolean italics,
+	protected MessagePartNBT(String path, boolean interpret, ChatColor color, boolean bold, boolean italics,
 			boolean underlined, boolean strikethrough, boolean obfuscated, ClickEvent click, HoverEvent hover) {
 		super(path, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
 		this.interpret = interpret;

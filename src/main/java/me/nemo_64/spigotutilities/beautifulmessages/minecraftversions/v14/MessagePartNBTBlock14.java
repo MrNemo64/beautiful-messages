@@ -3,10 +3,10 @@ package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v14;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
+import me.nemo_64.spigotutilities.beautifulmessages.ClickEvent;
+import me.nemo_64.spigotutilities.beautifulmessages.HoverEvent;
 import me.nemo_64.spigotutilities.beautifulmessages.MessagePart;
 import me.nemo_64.spigotutilities.beautifulmessages.MessagePartNBTBlock;
-import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEvent;
-import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEvent;
 
 public class MessagePartNBTBlock14 extends MessagePartNBTBlock {
 

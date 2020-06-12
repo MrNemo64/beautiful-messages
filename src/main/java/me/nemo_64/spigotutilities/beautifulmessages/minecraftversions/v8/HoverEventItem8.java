@@ -1,24 +1,24 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v11.events;
+package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8;
 
 import org.bukkit.inventory.ItemStack;
 
-import me.nemo_64.spigotutilities.beautifulmessages.events.HoverEventItem;
+import me.nemo_64.spigotutilities.beautifulmessages.HoverEventItem;
 
-public class HoverEventItem11 extends HoverEventItem {
+public class HoverEventItem8 extends HoverEventItem {
 
-	public HoverEventItem11(String item) {
+	public HoverEventItem8(String item) {
 		super(item);
 	}
 
-	public HoverEventItem11() {
+	public HoverEventItem8() {
 		super();
 	}
 
-	public HoverEventItem11(ItemStack item) {
+	public HoverEventItem8(ItemStack item) {
 		super(item);
 	}
 
-	public HoverEventItem11(JSONItemStack item) {
+	public HoverEventItem8(JSONItemStack item) {
 		super(item);
 	}
 

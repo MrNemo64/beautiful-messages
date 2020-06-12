@@ -1,4 +1,4 @@
-package me.nemo_64.spigotutilities.beautifulmessages.events;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
 public abstract class HoverEvent {
 

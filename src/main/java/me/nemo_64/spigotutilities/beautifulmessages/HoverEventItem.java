@@ -1,29 +1,65 @@
-package me.nemo_64.spigotutilities.beautifulmessages.events;
+package me.nemo_64.spigotutilities.beautifulmessages;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import javax.annotation.Nonnull;
+
 import org.bukkit.inventory.ItemStack;
 
 import me.nemo_64.spigotutilities.ReflectionUtils;
+import me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8.HoverEventItem8;
 
 public abstract class HoverEventItem extends HoverEvent {
 
-	public HoverEventItem(String item) {
+	protected HoverEventItem(String item) {
 		super(item);
 	}
 
-	public HoverEventItem() {
+	protected HoverEventItem() {
 		super();
 	}
 
-	public HoverEventItem(ItemStack item) {
+	protected HoverEventItem(ItemStack item) {
 		this(new JSONItemStack(item));
 	}
 
-	public HoverEventItem(JSONItemStack item) {
-		super(item.toJSON());
+	protected HoverEventItem(JSONItemStack item) {
+		this(item.toJSON());
+	}
+
+	/**
+	 * Creates an instance of this event
+	 * 
+	 * @param item
+	 *            The item to be displayed in the hover
+	 * @return An instance of this event in the corresponding minecraft version
+	 */
+	public static HoverEventItem create(String item) {
+		return new HoverEventItem8(item);
+	}
+
+	/**
+	 * Creates an instance of this event
+	 * 
+	 * @param item
+	 *            The item to be displayed in the hover
+	 * @return An instance of this event in the corresponding minecraft version
+	 */
+	public static HoverEventItem create(@Nonnull ItemStack item) {
+		return new HoverEventItem8(item);
+	}
+
+	/**
+	 * Creates an instance of this event
+	 * 
+	 * @param item
+	 *            The item to be displayed in the hover
+	 * @return An instance of this event in the corresponding minecraft version
+	 */
+	public static HoverEventItem create(@Nonnull JSONItemStack item) {
+		return new HoverEventItem8(item);
 	}
 
 	public static class JSONItemStack {

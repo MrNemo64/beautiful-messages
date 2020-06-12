@@ -1,20 +1,20 @@
-package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v11.events;
+package me.nemo_64.spigotutilities.beautifulmessages.minecraftversions.v8;
 
 import java.net.URL;
 
-import me.nemo_64.spigotutilities.beautifulmessages.events.ClickEventOpenURL;
+import me.nemo_64.spigotutilities.beautifulmessages.ClickEventOpenURL;
 
-public class ClickEventOpenURL11 extends ClickEventOpenURL {
+public class ClickEventOpenURL8 extends ClickEventOpenURL {
 
-	public ClickEventOpenURL11() {
+	public ClickEventOpenURL8() {
 		super();
 	}
 
-	public ClickEventOpenURL11(String url) {
+	public ClickEventOpenURL8(String url) {
 		super(url);
 	}
 
-	public ClickEventOpenURL11(URL url) {
+	public ClickEventOpenURL8(URL url) {
 		super(url.toString());
 	}
 
