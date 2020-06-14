@@ -32,9 +32,11 @@ class MessagePartNBTEntity14 extends MessagePartNBTEntity {
 
 		builder = appendInterpret(builder);
 
-		builder = appendColor(builder);
+		if (!ignoreColors)
+			builder = appendColor(builder);
 
-		builder = appendEvents(builder);
+		if (!ignoreEvents)
+			builder = appendEvents(builder);
 
 		builder.append("}");
 

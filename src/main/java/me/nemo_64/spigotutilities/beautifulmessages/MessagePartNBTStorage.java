@@ -7,11 +7,11 @@ import org.bukkit.ChatColor;
 
 /**
  * Works in 1.15+<br>
- * This message part will be replaced with the data from the apth specified in
+ * This message part will be replaced with the data from the path specified in
  * the storage specified.<br>
  * A storage is created and a value is stored in the path, for example, using
  * the command
- * {@code /data modify storage %STORAGE_NAME% %PATH_TO_DATA% set value %VALUE}
+ * {@code /data modify storage %STORAGE_NAME% %PATH_TO_DATA% set value %VALUE%}
  */
 public abstract class MessagePartNBTStorage extends MessagePartNBT {
 
@@ -26,7 +26,7 @@ public abstract class MessagePartNBTStorage extends MessagePartNBT {
 
 	/**
 	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to true
+	 * interpret is set by default to false
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
@@ -53,13 +53,13 @@ public abstract class MessagePartNBTStorage extends MessagePartNBT {
 	public static MessagePartNBTStorage create(@Nonnull String nbtPath, @Nonnull String storage,
 			@Nullable ChatColor color, boolean bold, boolean italics, boolean underlined, boolean strikethrough,
 			boolean obfuscated, @Nullable ClickEvent click, @Nullable HoverEvent hover) {
-		return new MessagePartNBTStorage15(nbtPath, storage, true, color, bold, italics, underlined, strikethrough,
+		return new MessagePartNBTStorage15(nbtPath, storage, false, color, bold, italics, underlined, strikethrough,
 				obfuscated, click, hover);
 	}
 
 	/**
 	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to true
+	 * interpret is set by default to false
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
@@ -73,7 +73,7 @@ public abstract class MessagePartNBTStorage extends MessagePartNBT {
 
 	/**
 	 * Creates a message part in the corresponding minecraft version <br>
-	 * interpret is set by default to true
+	 * interpret is set by default to false
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
@@ -85,13 +85,13 @@ public abstract class MessagePartNBTStorage extends MessagePartNBT {
 	 */
 	public static MessagePartNBTStorage create(@Nonnull String nbtPath, @Nonnull String storage,
 			@Nullable ChatColor color) {
-		return new MessagePartNBTStorage15(nbtPath, storage, true, color, false, false, false, false, false, null,
+		return new MessagePartNBTStorage15(nbtPath, storage, false, color, false, false, false, false, false, null,
 				null);
 	}
 
 	/**
 	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to true
+	 * interpret is set by default to false
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
@@ -103,7 +103,7 @@ public abstract class MessagePartNBTStorage extends MessagePartNBT {
 	 */
 	public static MessagePartNBTStorage create(@Nonnull String nbtPath, @Nonnull String storage,
 			@Nullable ChatColor color, boolean bold) {
-		return new MessagePartNBTStorage15(nbtPath, storage, true, color, bold, false, false, false, false, null, null);
+		return new MessagePartNBTStorage15(nbtPath, storage, false, color, bold, false, false, false, false, null, null);
 	}
 
 	public String getStorage() {

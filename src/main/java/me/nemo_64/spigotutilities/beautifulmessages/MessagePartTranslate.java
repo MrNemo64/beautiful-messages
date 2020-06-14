@@ -49,7 +49,7 @@ public abstract class MessagePartTranslate extends MessagePart {
 	public static MessagePart create(@Nonnull String path, @Nullable ChatColor color, boolean bold, boolean italics,
 			boolean underlined, boolean strikethrough, boolean obfuscated, @Nullable ClickEvent click,
 			@Nullable HoverEvent hover) {
-		return new MessagePart8(path, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
+		return new MessagePartTranslate8(path, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public abstract class MessagePartTranslate extends MessagePart {
 	 * @return A message part in the corresponding minecraft version
 	 */
 	public static MessagePart create() {
-		return new MessagePart8();
+		return new MessagePartTranslate8();
 	}
 
 	/**
@@ -88,7 +88,7 @@ public abstract class MessagePartTranslate extends MessagePart {
 	 * @return A message part in the corresponding minecraft version
 	 */
 	public static MessagePart create(@Nonnull String path, @Nullable ChatColor color) {
-		return new MessagePart8(path, color, false, false, false, false, false, null, null);
+		return new MessagePartTranslate8(path, color, false, false, false, false, false, null, null);
 	}
 
 	/**
@@ -105,7 +105,7 @@ public abstract class MessagePartTranslate extends MessagePart {
 	 * @return A message part in the corresponding minecraft version
 	 */
 	public static MessagePart create(@Nonnull String path, @Nullable ChatColor color, boolean bold) {
-		return new MessagePart8(path, color, bold, false, false, false, false, null, null);
+		return new MessagePartTranslate8(path, color, bold, false, false, false, false, null, null);
 	}
 
 	public String getPath() {

@@ -40,10 +40,12 @@ class MessagePartNBTBlock14 extends MessagePartNBTBlock {
 		builder.append("\"");
 
 		builder = appendInterpret(builder);
-		
-		builder = appendColor(builder);
-		
-		builder = appendEvents(builder);
+
+		if (!ignoreColors)
+			builder = appendColor(builder);
+
+		if (!ignoreEvents)
+			builder = appendEvents(builder);
 
 		builder.append("}");
 

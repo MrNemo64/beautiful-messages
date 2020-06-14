@@ -30,6 +30,8 @@ class MessagePartNBTStorage15 extends MessagePartNBTStorage {
 
 		builder.append("\"");
 
+		builder = appendInterpret(builder);
+		
 		if (!ignoreColors)
 			builder = appendColor(builder);
 

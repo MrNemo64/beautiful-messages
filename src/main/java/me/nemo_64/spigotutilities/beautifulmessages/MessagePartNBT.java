@@ -2,7 +2,7 @@ package me.nemo_64.spigotutilities.beautifulmessages;
 
 import org.bukkit.ChatColor;
 
-public abstract class MessagePartNBT extends MessagePart {
+abstract class MessagePartNBT extends MessagePart {
 
 	private boolean interpret;
 

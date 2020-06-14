@@ -22,7 +22,7 @@ public abstract class MessagePartNBTEntity extends MessagePartNBT {
 
 	/**
 	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to true
+	 * interpret is set by default to false
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
@@ -49,13 +49,13 @@ public abstract class MessagePartNBTEntity extends MessagePartNBT {
 	public static MessagePartNBTEntity create(@Nonnull String nbtPath, @Nonnull String selector,
 			@Nullable ChatColor color, boolean bold, boolean italics, boolean underlined, boolean strikethrough,
 			boolean obfuscated, @Nullable ClickEvent click, @Nullable HoverEvent hover) {
-		return new MessagePartNBTEntity14(nbtPath, selector, true, color, bold, italics, underlined, strikethrough,
+		return new MessagePartNBTEntity14(nbtPath, selector, false, color, bold, italics, underlined, strikethrough,
 				obfuscated, click, hover);
 	}
 
 	/**
 	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to true
+	 * interpret is set by default to false
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
@@ -69,7 +69,7 @@ public abstract class MessagePartNBTEntity extends MessagePartNBT {
 
 	/**
 	 * Creates a message part in the corresponding minecraft version <br>
-	 * interpret is set by default to true
+	 * interpret is set by default to false
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
@@ -81,13 +81,13 @@ public abstract class MessagePartNBTEntity extends MessagePartNBT {
 	 */
 	public static MessagePartNBTEntity create(@Nonnull String nbtPath, @Nonnull String selector,
 			@Nullable ChatColor color) {
-		return new MessagePartNBTEntity14(nbtPath, selector, true, color, false, false, false, false, false, null,
+		return new MessagePartNBTEntity14(nbtPath, selector, false, color, false, false, false, false, false, null,
 				null);
 	}
 
 	/**
 	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to true
+	 * interpret is set by default to false
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
@@ -99,7 +99,7 @@ public abstract class MessagePartNBTEntity extends MessagePartNBT {
 	 */
 	public static MessagePartNBTEntity create(@Nonnull String nbtPath, @Nonnull String selector,
 			@Nullable ChatColor color, boolean bold) {
-		return new MessagePartNBTEntity14(nbtPath, selector, true, color, bold, false, false, false, false, null, null);
+		return new MessagePartNBTEntity14(nbtPath, selector, false, color, bold, false, false, false, false, null, null);
 	}
 
 	public String getSelector() {

@@ -24,7 +24,7 @@ public abstract class MessagePartNBTBlock extends MessagePartNBT {
 
 	/**
 	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to true
+	 * interpret is set by default to false
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
@@ -51,13 +51,13 @@ public abstract class MessagePartNBTBlock extends MessagePartNBT {
 	public static MessagePartNBTBlock create(@Nonnull String nbtPath, @Nonnull Location location,
 			@Nullable ChatColor color, boolean bold, boolean italics, boolean underlined, boolean strikethrough,
 			boolean obfuscated, @Nullable ClickEvent click, @Nullable HoverEvent hover) {
-		return new MessagePartNBTBlock14(nbtPath, location, true, color, bold, italics, underlined, strikethrough,
+		return new MessagePartNBTBlock14(nbtPath, location, false, color, bold, italics, underlined, strikethrough,
 				obfuscated, click, hover);
 	}
 
 	/**
 	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to true
+	 * interpret is set by default to false
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
@@ -71,7 +71,7 @@ public abstract class MessagePartNBTBlock extends MessagePartNBT {
 
 	/**
 	 * Creates a message part in the corresponding minecraft version <br>
-	 * interpret is set by default to true
+	 * interpret is set by default to false
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
@@ -83,12 +83,12 @@ public abstract class MessagePartNBTBlock extends MessagePartNBT {
 	 */
 	public static MessagePartNBTBlock create(@Nonnull String nbtPath, @Nonnull Location location,
 			@Nullable ChatColor color) {
-		return new MessagePartNBTBlock14(nbtPath, location, true, color, false, false, false, false, false, null, null);
+		return new MessagePartNBTBlock14(nbtPath, location, false, color, false, false, false, false, false, null, null);
 	}
 
 	/**
 	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to true
+	 * interpret is set by default to false
 	 * 
 	 * @param nbtPath
 	 *            The NBT path
@@ -100,7 +100,7 @@ public abstract class MessagePartNBTBlock extends MessagePartNBT {
 	 */
 	public static MessagePartNBTBlock create(@Nonnull String nbtPath, @Nonnull Location location,
 			@Nullable ChatColor color, boolean bold) {
-		return new MessagePartNBTBlock14(nbtPath, location, true, color, bold, false, false, false, false, null, null);
+		return new MessagePartNBTBlock14(nbtPath, location, false, color, bold, false, false, false, false, null, null);
 	}
 
 	public Location getBlock() {
