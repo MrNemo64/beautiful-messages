@@ -4,17 +4,11 @@ import java.util.function.Supplier;
 
 import org.bukkit.ChatColor;
 
-/**
- * This message part is replaced with the translation in the lang file on the
- * player
- */
-public class MessagePartTranslate extends MessagePart {
+public class MessagePartText extends MessagePart {
 
 	/**
-	 * @param path
-	 *            The translate path. Check <a href=
-	 *            "https://github.com/MrNemo64/beautiful-messages/blob/master/translate.json">this
-	 *            link</a> to see all the message paths in 1.15
+	 * @param text
+	 *            The text to be shown
 	 * @param color
 	 *            The color of the message
 	 * @param bold
@@ -32,15 +26,9 @@ public class MessagePartTranslate extends MessagePart {
 	 * @param hover
 	 *            The hover event to be shown
 	 */
-	public MessagePartTranslate(String path, ChatColor color, boolean bold, boolean italics, boolean underlined,
+	public MessagePartText(String text, ChatColor color, boolean bold, boolean italics, boolean underlined,
 			boolean strikethrough, boolean obfuscated, ClickEvent click, HoverEvent hover) {
-		super(path, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
-	}
-
-	@Override
-	public MessagePart clone() {
-		return new MessagePartTranslate(getPath(), getColor(), isBold(), isItalics(), isUnderlined(), isStrikethrough(),
-				isObfuscated(), getClick(), getHover());
+		super(text, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
 	}
 
 	@Override
@@ -50,11 +38,10 @@ public class MessagePartTranslate extends MessagePart {
 
 	private Supplier<String> get8() {
 		return () -> {
-			// {"translate":"block.minecraft.stone"}
+			// {"text":"TEXT",...}
+			StringBuilder builder = new StringBuilder("{\"text\":\"");
 
-			StringBuilder builder = new StringBuilder("{\"translate\":\"");
-
-			builder.append(getPath());
+			builder.append(getText().replace("\"", "\\\""));
 
 			builder.append("\"");
 
@@ -68,12 +55,10 @@ public class MessagePartTranslate extends MessagePart {
 		};
 	}
 
-	public String getPath() {
-		return getText();
-	}
-
-	public void setPath(String path) {
-		setText(path);
+	@Override
+	public MessagePart clone() {
+		return new MessagePartText(getText(), getColor(), isBold(), isItalics(), isUnderlined(), isStrikethrough(),
+				isObfuscated(), getClick(), getHover());
 	}
 
 }

@@ -1,31 +1,38 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
-import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 /**
  * Only works with minecraft 1.15+<br>
  * When clicked the player will copy the specified text to copy
  */
-public abstract class ClickEventCopyToClipboard extends ClickEvent {
+public class ClickEventCopyToClipboard extends ClickEvent {
 
-	protected ClickEventCopyToClipboard() {
-		super();
-	}
-
-	protected ClickEventCopyToClipboard(String textToCopy) {
+	/**
+	 * @param textToCopy
+	 *            The text to be copyed to the clipboard when clicked
+	 */
+	public ClickEventCopyToClipboard(String textToCopy) {
 		super(textToCopy);
 	}
 
-	/**
-	 * Creates an instance of this event.<br>
-	 * Only works in 1.15+
-	 * 
-	 * @param textToCopy
-	 *            The thext to be copyed.
-	 * @return An instance of this event in the corresponding minecraft version
-	 */
-	public static ClickEventCopyToClipboard create(@Nonnull String textToCopy) {
-		return new ClickEventCopyToClipboard15(textToCopy);
+	@Override
+	protected Supplier<String> getParserToUse() {
+		return get15();
+	}
+
+	private Supplier<String> get15() {
+		return () -> {
+			// ,"clickEvent":{"action":"copy_to_clipboard","value":"VALUE"}
+
+			StringBuilder builder = new StringBuilder(",\"clickEvent\":{\"action\":\"copy_to_clipboard\",\"value\":\"");
+
+			builder.append(getValue());
+
+			builder.append("\"}");
+
+			return builder.toString();
+		};
 	}
 
 }

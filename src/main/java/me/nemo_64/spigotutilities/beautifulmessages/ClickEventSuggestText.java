@@ -1,6 +1,6 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
-import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 /**
  * When clicked the player gets a suggestion of a text.<br>
@@ -9,26 +9,32 @@ import javax.annotation.Nonnull;
  * {@link ClickEventSuggestCommand} and don't use "/" at the beggining of the
  * command
  */
-public abstract class ClickEventSuggestText extends ClickEvent {
+public class ClickEventSuggestText extends ClickEvent {
 
-	protected ClickEventSuggestText() {
-		super();
-	}
-
-	protected ClickEventSuggestText(String text) {
+	/**
+	 * @param text
+	 *            The text to be suggested when the player shift+click
+	 */
+	public ClickEventSuggestText(String text) {
 		super(text);
 	}
 
-	/**
-	 * Creates an instance of this event
-	 * 
-	 * @param textToSuggest
-	 *            The text to suggest. In orther for the text to be suggested the
-	 *            player has to shift+click
-	 * @return An instance of this event in the corresponding minecraft version
-	 */
-	public static ClickEventSuggestText create(@Nonnull String textToSuggest) {
-		return new ClickEventSuggestText8(textToSuggest);
+	@Override
+	protected Supplier<String> getParserToUse() {
+		return get8();
+	}
+
+	private Supplier<String> get8() {
+		return () -> {
+			// ,"insertion":"TEXT"
+			StringBuilder builder = new StringBuilder(",\"insertion\":\"");
+
+			builder.append(getValue().replace("\"", "\\\""));
+
+			builder.append("\"");
+
+			return builder.toString();
+		};
 	}
 
 }

@@ -1,6 +1,6 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
-import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 /**
  * When clicked the player will run the specified command.<br>
@@ -8,30 +8,32 @@ import javax.annotation.Nonnull;
  * hello"<br>
  * If there is not a "/" at the beggining, the player will just send a message
  */
-public abstract class ClickEventRunCommand extends ClickEvent {
+public class ClickEventRunCommand extends ClickEvent {
 
-	protected ClickEventRunCommand() {
-		super();
-	}
-
-	protected ClickEventRunCommand(String command) {
+	/**
+	 * @param command
+	 *            The command to be runned when clicked
+	 */
+	public ClickEventRunCommand(String command) {
 		super(command);
 	}
 
-	/**
-	 * Creates an instance of this event
-	 * 
-	 * @param command
-	 *            The command to be runned. The command is exacly what this string
-	 *            is.<br>
-	 *            For example, if you use "say hi" the player will send in the chat
-	 *            "say hi".<br>
-	 *            If you use "/say hi" the player will run the command "say" with
-	 *            the arguments "hi"
-	 * @return An instance of this event in the corresponding minecraft version
-	 */
-	public static ClickEventRunCommand create(@Nonnull String command) {
-		return new ClickEventRunCommand8(command);
+	@Override
+	protected Supplier<String> getParserToUse() {
+		return get8();
+	}
+
+	private Supplier<String> get8() {
+		return () -> {
+			// ,"clickEvent":{"action":"run_command","value":"COMMAND"}
+			StringBuilder builder = new StringBuilder(",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"");
+
+			builder.append(getValue().replace("\"", "\\\""));
+
+			builder.append("\"}");
+
+			return builder.toString();
+		};
 	}
 
 }

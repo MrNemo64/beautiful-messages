@@ -1,5 +1,7 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -13,12 +15,34 @@ import org.bukkit.ChatColor;
  * If the scoreboard does not exist / the player has no score, this message part
  * will be replaced with nothing
  */
-public abstract class MessagePartScore extends MessagePart {
+public class MessagePartScore extends MessagePart {
 
 	private String player;
 	private String score;
 
-	protected MessagePartScore(@Nonnull String player, @Nonnull String score, @Nullable ChatColor color, boolean bold,
+	/**
+	 * @param player
+	 *            The player to take the score
+	 * @param score
+	 *            The scoreboard to take the score
+	 * @param color
+	 *            The color of the message
+	 * @param bold
+	 *            If true, the message will be <b>bold</b>
+	 * @param italics
+	 *            If true, the message will be in <i>italics</i>
+	 * @param underlined
+	 *            If true, the message will be <u>underlined</u>
+	 * @param strikethrough
+	 *            If true, the message will be in <del>strikethrough</del>
+	 * @param obfuscated
+	 *            If true, the message will be obfuscated
+	 * @param click
+	 *            The click event to be runned when the message is clicked
+	 * @param hover
+	 *            The hover event to be shown
+	 */
+	public MessagePartScore(@Nonnull String player, @Nonnull String score, @Nullable ChatColor color, boolean bold,
 			boolean italics, boolean underlined, boolean strikethrough, boolean obfuscated, @Nullable ClickEvent click,
 			@Nullable HoverEvent hover) {
 		super("", color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
@@ -26,94 +50,38 @@ public abstract class MessagePartScore extends MessagePart {
 		this.score = score;
 	}
 
-	protected MessagePartScore() {
-		super();
+	@Override
+	protected Supplier<String> getParserToUse() {
+		return get8();
 	}
 
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @param playerName
-	 *            The playerName to be used
-	 * @param scoreboard
-	 *            The scoreboard to be used
-	 * @param color
-	 *            The color of the text
-	 * @param bold
-	 *            If the text is bold
-	 * @param italics
-	 *            If the text is in italics
-	 * @param underlined
-	 *            If the text is underlined
-	 * @param strikethrough
-	 *            If the text is in strikethrough
-	 * @param obfuscated
-	 *            If the text is obfuscated
-	 * @param click
-	 *            The click event
-	 * @param hover
-	 *            The hover event
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartScore create(@Nonnull String playerName, @Nonnull String scoreboard,
-			@Nullable ChatColor color, boolean bold, boolean italics, boolean underlined, boolean strikethrough,
-			boolean obfuscated, @Nullable ClickEvent click, @Nullable HoverEvent hover) {
-		return new MessagePartScore8(playerName, scoreboard, color, bold, italics, underlined, strikethrough,
-				obfuscated, click, hover);
+	private Supplier<String> get8() {
+		return () -> {
+			// {"score":{"name":"PLAYER","objective":"SCOREBOARD"},...}
+			StringBuilder builder = new StringBuilder("{\"score\":{\"name\":\"");
+
+			builder.append(getPlayer());
+
+			builder.append("\",\"objective\":\"");
+
+			builder.append(getScore());
+
+			builder.append("\"}");
+
+			builder = appendColor(builder);
+
+			builder = appendEvents(builder);
+
+			builder.append("}");
+
+			return builder.toString();
+		};
 	}
 
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartScore create() {
-		return new MessagePartScore8();
-	}
-
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @param playerName
-	 *            The playerName to be used
-	 * @param scoreboard
-	 *            The scoreboard to be used
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartScore create(@Nonnull String playerName, @Nonnull String scoreboard) {
-		return create(playerName, scoreboard, ChatColor.WHITE);
-	}
-
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @param playerName
-	 *            The playerName to be used
-	 * @param scoreboard
-	 *            The scoreboard to be used
-	 * @param color
-	 *            The color of the text
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartScore create(@Nonnull String playerName, @Nonnull String scoreboard,
-			@Nullable ChatColor color) {
-		return new MessagePartScore8(playerName, scoreboard, color, false, false, false, false, false, null, null);
-	}
-
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @param playerName
-	 *            The playerName to be used
-	 * @param scoreboard
-	 *            The scoreboard to be used
-	 * @param color
-	 *            The color of the text
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartScore create(@Nonnull String playerName, @Nonnull String scoreboard,
-			@Nullable ChatColor color, boolean bold) {
-		return new MessagePartScore8(playerName, scoreboard, color, bold, false, false, false, false, null, null);
+	@Override
+	public MessagePart clone() {
+		return new MessagePartScore(getPlayer(), getScore(), getColor(), isBold(), isItalics(), isUnderlined(),
+				isStrikethrough(), isObfuscated(), getClick(), getHover());
 	}
 
 	public String getPlayer() {

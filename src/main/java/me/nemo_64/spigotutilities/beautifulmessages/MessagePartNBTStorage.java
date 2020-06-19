@@ -1,7 +1,6 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 import org.bukkit.ChatColor;
 
@@ -13,97 +12,76 @@ import org.bukkit.ChatColor;
  * the command
  * {@code /data modify storage %STORAGE_NAME% %PATH_TO_DATA% set value %VALUE%}
  */
-public abstract class MessagePartNBTStorage extends MessagePartNBT {
+public class MessagePartNBTStorage extends MessagePartNBT {
 
 	private String storage;
 
-	protected MessagePartNBTStorage(String path, String storage, boolean interpret, ChatColor color, boolean bold,
+	/**
+	 * @param path
+	 *            The nbt path
+	 * @param storage
+	 *            The storage to get the data from
+	 * @param interpret
+	 *            If true, the data will be interpreted
+	 * @param color
+	 *            The color of the message
+	 * @param bold
+	 *            If true, the message will be <b>bold</b>
+	 * @param italics
+	 *            If true, the message will be in <i>italics</i>
+	 * @param underlined
+	 *            If true, the message will be <u>underlined</u>
+	 * @param strikethrough
+	 *            If true, the message will be in <del>strikethrough</del>
+	 * @param obfuscated
+	 *            If true, the message will be obfuscated
+	 * @param click
+	 *            The click event to be runned when the message is clicked
+	 * @param hover
+	 *            The hover event to be shown
+	 */
+	public MessagePartNBTStorage(String path, String storage, boolean interpret, ChatColor color, boolean bold,
 			boolean italics, boolean underlined, boolean strikethrough, boolean obfuscated, ClickEvent click,
 			HoverEvent hover) {
 		super(path, interpret, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
 		this.storage = storage;
 	}
 
-	/**
-	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to false
-	 * 
-	 * @param nbtPath
-	 *            The NBT path
-	 * @param storage
-	 *            The storage to take the value from
-	 * @param color
-	 *            The color of the text
-	 * @param bold
-	 *            If the text is bold
-	 * @param italics
-	 *            If the text is in italics
-	 * @param underlined
-	 *            If the text is underlined
-	 * @param strikethrough
-	 *            If the text is in strikethrough
-	 * @param obfuscated
-	 *            If the text is obfuscated
-	 * @param click
-	 *            The click event
-	 * @param hover
-	 *            The hover event
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartNBTStorage create(@Nonnull String nbtPath, @Nonnull String storage,
-			@Nullable ChatColor color, boolean bold, boolean italics, boolean underlined, boolean strikethrough,
-			boolean obfuscated, @Nullable ClickEvent click, @Nullable HoverEvent hover) {
-		return new MessagePartNBTStorage15(nbtPath, storage, false, color, bold, italics, underlined, strikethrough,
-				obfuscated, click, hover);
+	@Override
+	protected Supplier<String> getParserToUse() {
+		return get15();
 	}
 
-	/**
-	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to false
-	 * 
-	 * @param nbtPath
-	 *            The NBT path
-	 * @param storage
-	 *            The storage to take the value from
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartNBTStorage create(@Nonnull String nbtPath, @Nonnull String storage) {
-		return create(nbtPath, storage, ChatColor.WHITE);
+	private Supplier<String> get15() {
+		return () -> {
+			// {"nbt": <path>, "storage":"<resource id>",...}
+
+			StringBuilder builder = new StringBuilder("{\"nbt\":\"");
+
+			builder.append(getPath());
+
+			builder.append("\", \"storage\":\"");
+
+			builder.append(getStorage());
+
+			builder.append("\"");
+
+			builder = appendInterpret(builder);
+
+			builder = appendColor(builder);
+
+			builder = appendEvents(builder);
+
+			builder.append("}");
+
+			return builder.toString();
+		};
 	}
 
-	/**
-	 * Creates a message part in the corresponding minecraft version <br>
-	 * interpret is set by default to false
-	 * 
-	 * @param nbtPath
-	 *            The NBT path
-	 * @param storage
-	 *            The storage to take the value from
-	 * @param color
-	 *            The color of the text
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartNBTStorage create(@Nonnull String nbtPath, @Nonnull String storage,
-			@Nullable ChatColor color) {
-		return new MessagePartNBTStorage15(nbtPath, storage, false, color, false, false, false, false, false, null,
-				null);
-	}
-
-	/**
-	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to false
-	 * 
-	 * @param nbtPath
-	 *            The NBT path
-	 * @param storage
-	 *            The storage to take the value from
-	 * @param color
-	 *            The color of the text
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartNBTStorage create(@Nonnull String nbtPath, @Nonnull String storage,
-			@Nullable ChatColor color, boolean bold) {
-		return new MessagePartNBTStorage15(nbtPath, storage, false, color, bold, false, false, false, false, null, null);
+	@Override
+	public MessagePart clone() {
+		return new MessagePartNBTStorage(getPath(), getStorage(), isInterpret(), getColor(), isBold(), isItalics(),
+				isUnderlined(), isStrikethrough(), isObfuscated(), getClick(), getHover());
 	}
 
 	public String getStorage() {

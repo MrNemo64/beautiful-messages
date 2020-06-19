@@ -1,6 +1,6 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
-import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 /**
  * When clicked the player will get the suggestion the specified command.<br>
@@ -10,29 +10,31 @@ import javax.annotation.Nonnull;
  * suggestion
  */
 
-public abstract class ClickEventSuggestCommand extends ClickEvent {
+public class ClickEventSuggestCommand extends ClickEvent {
 
-	protected ClickEventSuggestCommand() {
-		super();
-	}
-
-	protected ClickEventSuggestCommand(String command) {
+	/**
+	 * @param command
+	 *            The command to be suggested when clicked
+	 */
+	public ClickEventSuggestCommand(String command) {
 		super(command);
 	}
 
-	/**
-	 * Creates an instance of this event
-	 * 
-	 * @param command
-	 *            The command to be suggested. The command is exacly what this
-	 *            string is.<br>
-	 *            For example, if you use "say hi" the player get as suggestion "say
-	 *            hi".<br>
-	 *            If you use "/say hi" the player will get as suggestion "/say hi"
-	 * @return An instance of this event in the corresponding minecraft version
-	 */
-	public static ClickEventSuggestCommand create(@Nonnull String command) {
-		return new ClickEventSuggestCommand8(command);
+	@Override
+	protected Supplier<String> getParserToUse() {
+		return get8();
 	}
 
+	private Supplier<String> get8() {
+		return () -> {
+			// ,"clickEvent":{"action":"suggest_command","value":"COMMAND"}
+			StringBuilder builder = new StringBuilder(",\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"");
+
+			builder.append(getValue().replace("\"", "\\\""));
+
+			builder.append("\"}");
+
+			return builder.toString();
+		};
+	}
 }

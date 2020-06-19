@@ -1,20 +1,24 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
-import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
-public abstract class ClickEvent {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import me.nemo_64.spigotutilities.JSONParseable;
+
+public abstract class ClickEvent extends JSONParseable {
 
 	private String value;
 
-	protected ClickEvent(@Nonnull String value) {
+	protected ClickEvent(@Nullable Supplier<String> parser, @Nonnull String value) {
+		super(parser);
 		this.value = value;
 	}
 
-	protected ClickEvent() {
-		this("value");
+	protected ClickEvent(@Nonnull String value) {
+		this(null, value);
 	}
-
-	public abstract String toJSON();
 
 	@Override
 	public String toString() {
@@ -28,5 +32,5 @@ public abstract class ClickEvent {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
+
 }

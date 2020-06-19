@@ -1,41 +1,49 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
-import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
-public abstract class HoverEventText extends HoverEvent {
+public class HoverEventText extends HoverEvent {
 
-	protected HoverEventText(String text) {
-		super(text);
-	}
-
-	protected HoverEventText() {
-		super();
-	}
-
-	protected HoverEventText(Message message) {
-		super(message.toJSON(true, true));
-	}
-	
 	/**
-	 * Creates an instance of this event
-	 * 
-	 * @param text
-	 *            The text to be displayed in the hover
-	 * @return An instance of this event in the corresponding minecraft version
+	 * @param JSONtext
+	 *            The text as JSON to be displayed in the hover
 	 */
-	public static HoverEventText create(@Nonnull String text) {
-		return new HoverEventText8(text);
+	public HoverEventText(String JSONtext) {
+		super(JSONtext);
 	}
-	
+
 	/**
-	 * Creates an instance of this event
-	 * 
 	 * @param message
-	 *            The message to be displayed in the hover
-	 * @return An instance of this event in the corresponding minecraft version
+	 *            The message to be shown in the hover
 	 */
-	public static HoverEventText create(Message message) {
-		return new HoverEventText8(message);
+	public HoverEventText(Message message) {
+		this(message.toJSON(true, true));
 	}
-	
+
+	/**
+	 * @param message
+	 *            The message to be shown in the hover
+	 */
+	public HoverEventText(MessagePart message) {
+		this(new Message(message));
+	}
+
+	@Override
+	protected Supplier<String> getParserToUse() {
+		return get8();
+	}
+
+	private Supplier<String> get8() {
+		return () -> {
+			// ,"hoverEvent":{"action":"show_text","value":"VALUE"}
+			StringBuilder builder = new StringBuilder(",\"hoverEvent\":{\"action\":\"show_text\",\"value\":");
+
+			builder.append(getValue()/* .replace("\"", "\\\"") */);
+
+			builder.append("}");
+
+			return builder.toString();
+		};
+	}
+
 }

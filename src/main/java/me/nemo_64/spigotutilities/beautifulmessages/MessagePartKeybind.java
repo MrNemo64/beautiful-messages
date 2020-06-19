@@ -1,7 +1,6 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 import org.bukkit.ChatColor;
 
@@ -13,93 +12,64 @@ import org.bukkit.ChatColor;
  * For example, {@link Keybind#FORWARD} will probably get replaced with "w"
  * since is the key by default.
  */
-public abstract class MessagePartKeybind extends MessagePart {
+public class MessagePartKeybind extends MessagePart {
 
 	private Keybind key;
 
-	protected MessagePartKeybind(Keybind key, ChatColor color, boolean bold, boolean italics, boolean underlined,
+	/**
+	 * @param key
+	 *            The key to be shown
+	 * @param color
+	 *            The color of the message
+	 * @param bold
+	 *            If true, the message will be <b>bold</b>
+	 * @param italics
+	 *            If true, the message will be in <i>italics</i>
+	 * @param underlined
+	 *            If true, the message will be <u>underlined</u>
+	 * @param strikethrough
+	 *            If true, the message will be in <del>strikethrough</del>
+	 * @param obfuscated
+	 *            If true, the message will be obfuscated
+	 * @param click
+	 *            The click event to be runned when the message is clicked
+	 * @param hover
+	 *            The hover event to be shown
+	 */
+	public MessagePartKeybind(Keybind key, ChatColor color, boolean bold, boolean italics, boolean underlined,
 			boolean strikethrough, boolean obfuscated, ClickEvent click, HoverEvent hover) {
 		super(key.getPath(), color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
 		this.key = key;
 	}
 
-	protected MessagePartKeybind() {
-		super();
+	@Override
+	protected Supplier<String> getParserToUse() {
+		return get12();
 	}
 
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @param key
-	 *            The key to be displayed
-	 * @param color
-	 *            The color of the text
-	 * @param bold
-	 *            If the text is bold
-	 * @param italics
-	 *            If the text is in italics
-	 * @param underlined
-	 *            If the text is underlined
-	 * @param strikethrough
-	 *            If the text is in strikethrough
-	 * @param obfuscated
-	 *            If the text is obfuscated
-	 * @param click
-	 *            The click event
-	 * @param hover
-	 *            The hover event
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartKeybind create(@Nonnull Keybind key, @Nullable ChatColor color, boolean bold,
-			boolean italics, boolean underlined, boolean strikethrough, boolean obfuscated, @Nullable ClickEvent click,
-			@Nullable HoverEvent hover) {
-		return new MessagePartKeybind12(key, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
+	private Supplier<String> get12() {
+		return () -> {
+			// {"keybind":"KEY",...}
+			StringBuilder builder = new StringBuilder("{\"keybind\":\"");
+
+			builder.append(getKey().getPath());
+
+			builder.append("\"");
+
+			builder = appendColor(builder);
+
+			builder = appendEvents(builder);
+
+			builder.append("}");
+
+			return builder.toString();
+		};
 	}
 
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartKeybind create() {
-		return new MessagePartKeybind12();
-	}
-
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @param key
-	 *            The key to be displayed
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartKeybind create(@Nonnull Keybind key) {
-		return create(key, ChatColor.WHITE);
-	}
-
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @param key
-	 *            The key to be displayed
-	 * @param color
-	 *            The color of the text
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartKeybind create(@Nonnull Keybind key, @Nullable ChatColor color) {
-		return new MessagePartKeybind12(key, color, false, false, false, false, false, null, null);
-	}
-
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @param key
-	 *            The key to be displayed
-	 * @param color
-	 *            The color of the text
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartKeybind create(@Nonnull Keybind key, @Nullable ChatColor color, boolean bold) {
-		return new MessagePartKeybind12(key, color, bold, false, false, false, false, null, null);
+	@Override
+	public MessagePart clone() {
+		return new MessagePartKeybind(getKey(), getColor(), isBold(), isItalics(), isUnderlined(), isStrikethrough(),
+				isObfuscated(), getClick(), getHover());
 	}
 
 	public Keybind getKey() {

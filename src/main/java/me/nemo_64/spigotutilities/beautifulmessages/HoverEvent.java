@@ -1,18 +1,21 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
-public abstract class HoverEvent {
+import java.util.function.Supplier;
+
+import me.nemo_64.spigotutilities.JSONParseable;
+
+public abstract class HoverEvent extends JSONParseable {
 
 	private String value;
 
 	public HoverEvent(String value) {
+		this(null, value);
+	}
+
+	public HoverEvent(Supplier<String> parser, String value) {
+		super(parser);
 		this.value = value;
 	}
-
-	public HoverEvent() {
-		this("value");
-	}
-
-	public abstract String toJSON();
 
 	public String getValue() {
 		return value;

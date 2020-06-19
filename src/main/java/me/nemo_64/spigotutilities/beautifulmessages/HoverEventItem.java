@@ -3,62 +3,55 @@ package me.nemo_64.spigotutilities.beautifulmessages;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 import org.bukkit.inventory.ItemStack;
 
 import me.nemo_64.spigotutilities.ReflectionUtils;
 
-public abstract class HoverEventItem extends HoverEvent {
+public class HoverEventItem extends HoverEvent {
 
-	protected HoverEventItem(String item) {
+	/**
+	 * @param item
+	 *            The item as JSON to be displayed
+	 */
+	public HoverEventItem(String item) {
 		super(item);
 	}
 
-	protected HoverEventItem() {
-		super();
-	}
-
-	protected HoverEventItem(ItemStack item) {
+	/**
+	 * @param item
+	 *            The item to be displayed
+	 */
+	public HoverEventItem(ItemStack item) {
 		this(new JSONItemStack(item));
 	}
 
-	protected HoverEventItem(JSONItemStack item) {
+	/**
+	 * @param item
+	 *            The item to be displayed
+	 */
+	public HoverEventItem(JSONItemStack item) {
 		this(item.toJSON());
 	}
 
-	/**
-	 * Creates an instance of this event
-	 * 
-	 * @param item
-	 *            The item to be displayed in the hover
-	 * @return An instance of this event in the corresponding minecraft version
-	 */
-	public static HoverEventItem create(String item) {
-		return new HoverEventItem8(item);
+	@Override
+	protected Supplier<String> getParserToUse() {
+		return get8();
 	}
 
-	/**
-	 * Creates an instance of this event
-	 * 
-	 * @param item
-	 *            The item to be displayed in the hover
-	 * @return An instance of this event in the corresponding minecraft version
-	 */
-	public static HoverEventItem create(@Nonnull ItemStack item) {
-		return new HoverEventItem8(item);
-	}
+	private Supplier<String> get8() {
+		return () -> {
+			// ,"hoverEvent":{"action":"show_item","value":"ITEM"}
 
-	/**
-	 * Creates an instance of this event
-	 * 
-	 * @param item
-	 *            The item to be displayed in the hover
-	 * @return An instance of this event in the corresponding minecraft version
-	 */
-	public static HoverEventItem create(@Nonnull JSONItemStack item) {
-		return new HoverEventItem8(item);
+			StringBuilder builder = new StringBuilder(",\"hoverEvent\":{\"action\":\"show_item\",\"value\":\"");
+
+			builder.append(getValue().replace("\"", "\\\""));
+
+			builder.append("\"}");
+
+			return builder.toString();
+		};
 	}
 
 	public static class JSONItemStack {

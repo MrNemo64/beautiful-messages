@@ -1,47 +1,46 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
 import java.net.URL;
-
-import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 /**
  * When clicked a pop up message will tell the player if he wants to open the
  * specified webpage
  */
-public abstract class ClickEventOpenURL extends ClickEvent {
+public class ClickEventOpenURL extends ClickEvent {
 
-	protected ClickEventOpenURL() {
-		super();
-	}
-
-	protected ClickEventOpenURL(String url) {
+	/**
+	 * @param url
+	 *            The url to be opend if the player clicks
+	 */
+	public ClickEventOpenURL(String url) {
 		super(url);
 	}
 
-	protected ClickEventOpenURL(URL url) {
-		super(url.toString());
+	/**
+	 * @param url
+	 *            The url to be opend if the player clicks
+	 */
+	public ClickEventOpenURL(URL url) {
+		this(url.toString());
 	}
 
-	/**
-	 * Creates an instance of this event
-	 * 
-	 * @param url
-	 *            The url to be oppend
-	 * @return An instance of this event in the corresponding minecraft version
-	 */
-	public static ClickEventOpenURL create(@Nonnull String url) {
-		return new ClickEventOpenURL8(url);
+	@Override
+	protected Supplier<String> getParserToUse() {
+		return get8();
 	}
 
-	/**
-	 * Creates an instance of this event
-	 * 
-	 * @param url
-	 *            The url to be oppend
-	 * @return An instance of this event in the corresponding minecraft version
-	 */
-	public static ClickEventOpenURL create(@Nonnull URL url) {
-		return new ClickEventOpenURL8(url);
+	private Supplier<String> get8() {
+		return () -> {
+			// ,"clickEvent":{"action":"open_url","value":"URL"}
+			StringBuilder builder = new StringBuilder(",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"");
+
+			builder.append(getValue().replace("\"", "\\\""));
+
+			builder.append("\"}");
+
+			return builder.toString();
+		};
 	}
 
 }

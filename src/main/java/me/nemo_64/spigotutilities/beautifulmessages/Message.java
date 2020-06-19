@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -15,9 +16,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import me.nemo_64.spigotutilities.JSONParseable;
 import me.nemo_64.spigotutilities.ReflectionUtils;
 
-public class Message {
+public class Message extends JSONParseable {
 
 	private List<MessagePart> parts;
 
@@ -33,6 +35,11 @@ public class Message {
 		this(Arrays.asList(parts));
 	}
 
+	 @Override
+	protected Supplier<String> getParserToUse() {
+		return () -> toJSON();
+	}
+	
 	/**
 	 * Sends this message to the player
 	 * 

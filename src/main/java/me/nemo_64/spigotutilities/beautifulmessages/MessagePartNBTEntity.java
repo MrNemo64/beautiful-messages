@@ -1,7 +1,6 @@
 package me.nemo_64.spigotutilities.beautifulmessages;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 import org.bukkit.ChatColor;
 
@@ -9,97 +8,76 @@ import org.bukkit.ChatColor;
  * Works in 1.14+<br>
  * Gets replaed with the information of an entity
  */
-public abstract class MessagePartNBTEntity extends MessagePartNBT {
+public class MessagePartNBTEntity extends MessagePartNBT {
 
 	private String selector;
 
-	protected MessagePartNBTEntity(String path, String selector, boolean interpret, ChatColor color, boolean bold,
+	/**
+	 * @param path
+	 *            The nbt to be followed
+	 * @param selector
+	 *            The entity selector to be used
+	 * @param interpret
+	 *            If true, the data will be interpreted
+	 * @param color
+	 *            The color of the message
+	 * @param bold
+	 *            If true, the message will be <b>bold</b>
+	 * @param italics
+	 *            If true, the message will be in <i>italics</i>
+	 * @param underlined
+	 *            If true, the message will be <u>underlined</u>
+	 * @param strikethrough
+	 *            If true, the message will be in <del>strikethrough</del>
+	 * @param obfuscated
+	 *            If true, the message will be obfuscated
+	 * @param click
+	 *            The click event to be runned when the message is clicked
+	 * @param hover
+	 *            The hover event to be shown
+	 */
+	public MessagePartNBTEntity(String path, String selector, boolean interpret, ChatColor color, boolean bold,
 			boolean italics, boolean underlined, boolean strikethrough, boolean obfuscated, ClickEvent click,
 			HoverEvent hover) {
 		super(path, interpret, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
 		this.selector = selector;
 	}
 
-	/**
-	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to false
-	 * 
-	 * @param nbtPath
-	 *            The NBT path
-	 * @param selector
-	 *            The selector of the entitys
-	 * @param color
-	 *            The color of the text
-	 * @param bold
-	 *            If the text is bold
-	 * @param italics
-	 *            If the text is in italics
-	 * @param underlined
-	 *            If the text is underlined
-	 * @param strikethrough
-	 *            If the text is in strikethrough
-	 * @param obfuscated
-	 *            If the text is obfuscated
-	 * @param click
-	 *            The click event
-	 * @param hover
-	 *            The hover event
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartNBTEntity create(@Nonnull String nbtPath, @Nonnull String selector,
-			@Nullable ChatColor color, boolean bold, boolean italics, boolean underlined, boolean strikethrough,
-			boolean obfuscated, @Nullable ClickEvent click, @Nullable HoverEvent hover) {
-		return new MessagePartNBTEntity14(nbtPath, selector, false, color, bold, italics, underlined, strikethrough,
-				obfuscated, click, hover);
+	@Override
+	protected Supplier<String> getParserToUse() {
+		return get14();
 	}
 
-	/**
-	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to false
-	 * 
-	 * @param nbtPath
-	 *            The NBT path
-	 * @param selector
-	 *            The selector of the entitys
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartNBTEntity create(@Nonnull String nbtPath, @Nonnull String selector) {
-		return create(nbtPath, selector, ChatColor.WHITE);
+	private Supplier<String> get14() {
+		return () -> {
+			// {"entity":"SELECTOR","nbt":"PATH","interpret":true,...}
+
+			StringBuilder builder = new StringBuilder("{\"entity\":\"");
+
+			builder.append(getSelector());
+
+			builder.append("\",\"nbt\":\"");
+
+			builder.append(getPath());
+
+			builder.append("\"");
+
+			builder = appendInterpret(builder);
+
+			builder = appendColor(builder);
+
+			builder = appendEvents(builder);
+
+			builder.append("}");
+
+			return builder.toString();
+		};
 	}
 
-	/**
-	 * Creates a message part in the corresponding minecraft version <br>
-	 * interpret is set by default to false
-	 * 
-	 * @param nbtPath
-	 *            The NBT path
-	 * @param selector
-	 *            The selector of the entitys
-	 * @param color
-	 *            The color of the text
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartNBTEntity create(@Nonnull String nbtPath, @Nonnull String selector,
-			@Nullable ChatColor color) {
-		return new MessagePartNBTEntity14(nbtPath, selector, false, color, false, false, false, false, false, null,
-				null);
-	}
-
-	/**
-	 * Creates a message part in the corresponding minecraft version<br>
-	 * interpret is set by default to false
-	 * 
-	 * @param nbtPath
-	 *            The NBT path
-	 * @param selector
-	 *            The selector of the entitys
-	 * @param color
-	 *            The color of the text
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePartNBTEntity create(@Nonnull String nbtPath, @Nonnull String selector,
-			@Nullable ChatColor color, boolean bold) {
-		return new MessagePartNBTEntity14(nbtPath, selector, false, color, bold, false, false, false, false, null, null);
+	@Override
+	public MessagePart clone() {
+		return new MessagePartNBTEntity(getPath(), getSelector(), isInterpret(), getColor(), isBold(), isItalics(),
+				isUnderlined(), isStrikethrough(), isObfuscated(), getClick(), getHover());
 	}
 
 	public String getSelector() {

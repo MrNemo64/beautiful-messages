@@ -5,10 +5,12 @@ import javax.annotation.Nullable;
 
 import org.bukkit.ChatColor;
 
+import me.nemo_64.spigotutilities.JSONParseable;
+
 /**
  * Represents a message part with just text
  */
-public abstract class MessagePart {
+public abstract class MessagePart extends JSONParseable {
 
 	private ClickEvent click;
 	private HoverEvent hover;
@@ -21,7 +23,7 @@ public abstract class MessagePart {
 	private boolean strikethrough;
 	private boolean obfuscated;
 
-	protected MessagePart(@Nonnull String text, @Nullable ChatColor color, boolean bold, boolean italics,
+	public MessagePart(@Nonnull String text, @Nullable ChatColor color, boolean bold, boolean italics,
 			boolean underlined, boolean strikethrough, boolean obfuscated, @Nullable ClickEvent click,
 			@Nullable HoverEvent hover) {
 		super();
@@ -44,101 +46,9 @@ public abstract class MessagePart {
 	}
 
 	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @param text
-	 *            The text to be displayed
-	 * @param color
-	 *            The color of the text
-	 * @param bold
-	 *            If the text is bold
-	 * @param italics
-	 *            If the text is in italics
-	 * @param underlined
-	 *            If the text is underlined
-	 * @param strikethrough
-	 *            If the text is in strikethrough
-	 * @param obfuscated
-	 *            If the text is obfuscated
-	 * @param click
-	 *            The click event
-	 * @param hover
-	 *            The hover event
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePart create(@Nonnull String text, @Nullable ChatColor color, boolean bold, boolean italics,
-			boolean underlined, boolean strikethrough, boolean obfuscated, @Nullable ClickEvent click,
-			@Nullable HoverEvent hover) {
-		return new MessagePart8(text, color, bold, italics, underlined, strikethrough, obfuscated, click, hover);
-	}
-
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePart create() {
-		return new MessagePart8();
-	}
-
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @param text
-	 *            The text to be displayed
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePart create(@Nonnull String text) {
-		return create(text, ChatColor.WHITE);
-	}
-
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @param text
-	 *            The text to be displayed
-	 * @param color
-	 *            The color of the text
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePart create(@Nonnull String text, @Nullable ChatColor color) {
-		return new MessagePart8(text, color, false, false, false, false, false, null, null);
-	}
-
-	/**
-	 * Creates a message part in the corresponding minecraft version
-	 * 
-	 * @param text
-	 *            The text to be displayed
-	 * @param color
-	 *            The color of the text
-	 * @return A message part in the corresponding minecraft version
-	 */
-	public static MessagePart create(@Nonnull String text, @Nullable ChatColor color, boolean bold) {
-		return new MessagePart8(text, color, bold, false, false, false, false, null, null);
-	}
-
-	/**
 	 * Gets a clone of this message part
 	 */
 	public abstract MessagePart clone();
-
-	/**
-	 * Turns turns this message part into a JSON string
-	 * 
-	 * @param ignoreColors
-	 *            If true, colors won't be applied
-	 * @param ignoreEvents
-	 *            If true, events won't be applied
-	 * @return This message part as a JSON
-	 */
-
-	public abstract String toJSON(boolean ignoreColors, boolean ignoreEvents);
-
-	@Nullable
-	public String toJSON() {
-		return toJSON(false, false);
-	}
 
 	@Override
 	public boolean equals(Object obj) {
